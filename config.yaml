@@ -1,0 +1,21 @@
+adata: data/adata_r_nr.h5ad
+
+keys:
+    donor: sample
+    condition: group
+    celltype: celltype3
+
+additional_covariate:
+    - label
+    - Drug2
+
+deseq2:
+    subset_celltype_pattern: '^PBMC ' # pattern to subset cell types, use null to keep all
+    ref_condition: R
+    min_reps_per_condition: 2
+    padj_level: 0.05
+    abs_lfc_min: 1
+    plot:
+        min_degs_per_celltype: 1
+        max_degs_per_celltype: 20
+        heatmap_top_n_genes: 50

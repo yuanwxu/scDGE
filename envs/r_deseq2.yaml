@@ -1,0 +1,23 @@
+name: r_deseq2
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - r-base
+  - bioconductor-sparsearray
+  - ca-certificates
+  - openssl
+  - jq
+  - yq
+  - bioconductor-deseq2
+  - bioconductor-edger
+  - bioconductor-apeglm
+  - bioconductor-enhancedvolcano
+  - r-tidyverse
+  - r-ggrepel
+  - r-pheatmap
+  - r-rcolorbrewer
+  - python=3.13
+  - snakemake
+prefix: /public/home/chenjiaminggroup/ywxu/miniforge3/envs/r_deseq2
