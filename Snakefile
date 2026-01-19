@@ -11,10 +11,10 @@ rule psuedobulk:
     input:
         config['adata']
     output:
-        "output/deseq2/counts.csv",
-        "output/deseq2/coldata.csv",
-        "output/" + os.path.splitext(os.path.basename(config['adata']))[0] + "_pb.h5ad",
-        "output/pseudobulk_eda.pdf" 
+        counts="output/deseq2/counts.csv",
+        coldata="output/deseq2/coldata.csv",
+        h5ad="output/" + os.path.splitext(os.path.basename(config['adata']))[0] + "_pb.h5ad",
+        plot="output/pseudobulk_eda.pdf" 
     params:
         donor_key=config['pseudobulk']['donor_key'],
         condition_key=config['pseudobulk']['condition_key'],

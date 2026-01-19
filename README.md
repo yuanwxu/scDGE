@@ -44,6 +44,10 @@ To run the full analysis:
 snakemake --use-conda --cores 4
 ```
 
+### In case there is an error
+
+Check the `logs/` folder for detailed error message.
+
 
 ## Results
 

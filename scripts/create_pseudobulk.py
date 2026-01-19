@@ -1,8 +1,17 @@
+import sys
 import numpy as np
 import pandas as pd
 import scipy.sparse as sp
 import matplotlib.pyplot as plt
 import scanpy as sc
+
+
+# Redirect stdout and stderr to the log file defined in the Snakefile
+if hasattr(snakemake, 'log') and snakemake.log:
+    f = open(str(snakemake.log), 'w')
+    sys.stdout = f
+    sys.stderr = f
+
 
 # DEG analysis per cell type
 def create_pseudobulk(adata, donor_key='sample', condition_key='group', celltype_key='celltype3',
@@ -147,14 +156,18 @@ adata_pb = create_pseudobulk(adata,
                              celltype_key=snakemake.params.celltype_key,
                              n_cells_min=snakemake.params.n_cells_min,
                              obs_cols_to_keep=snakemake.params.covars,
-                             counts_deseq2_file=snakemake.output[0],
-                             coldata_deseq2_file=snakemake.output[1])
+                             counts_deseq2_file=snakemake.output.counts,
+                             coldata_deseq2_file=snakemake.output.coldata)
                             
 pseudobulk_EDA(adata_pb, 
                condition_key=snakemake.params.condition_key, 
                covars=snakemake.params.covars, 
-               fig_file=snakemake.output[3])
+               fig_file=snakemake.output.plot)
 
 # Save the pseudobulk object
-adata_pb.write_h5ad(snakemake.output[2])
+adata_pb.write_h5ad(snakemake.output.h5ad)
+
+# Close the file for logging
+if hasattr(snakemake, 'log') and snakemake.log:
+    f.close()
 
