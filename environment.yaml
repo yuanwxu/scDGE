@@ -1,0 +1,14 @@
+name: snakemake
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - graphviz
+  - jsonpickle
+  - pandas[version='<2.0.0']
+  - python
+  - singularity
+  - snakemake=9.14.5
+  - conda
+  - mamba

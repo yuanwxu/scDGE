@@ -1,13 +1,13 @@
 adata: data/adata_r_nr.h5ad
 
-keys:
-    donor: sample
-    condition: group
-    celltype: celltype3
-
-additional_covariate:
-    - label
-    - Drug2
+pseudobulk:
+    donor_key: sample
+    condition_key: group
+    celltype_key: celltype3
+    min_cells_per_sample: 30
+    additional_covariates:
+        - label
+        - Drug2
 
 deseq2:
     subset_celltype_pattern: '^PBMC ' # pattern to subset cell types, use null to keep all

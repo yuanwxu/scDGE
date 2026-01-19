@@ -16,11 +16,11 @@ rule psuedobulk:
         "output/" + os.path.splitext(os.path.basename(config['adata']))[0] + "_pb.h5ad",
         "output/pseudobulk_eda.pdf" 
     params:
-        donor_key=config['keys']['donor'],
-        condition_key=config['keys']['condition'],
-        celltype_key=config['keys']['celltype'],
-        covars=config['additional_covariate'],
-        n_cells_min=30,
+        donor_key=config['pseudobulk']['donor_key'],
+        condition_key=config['pseudobulk']['condition_key'],
+        celltype_key=config['pseudobulk']['celltype_key'],
+        covars=config['pseudobulk']['additional_covariates'],
+        n_cells_min=config['pseudobulk']['min_cells_per_sample'],
     conda:
         "envs/scanpy.yaml"
     log:
