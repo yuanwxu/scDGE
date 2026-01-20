@@ -51,7 +51,7 @@ checkpoint split_by_celltype:
         counts="output/deseq2/counts.csv",
         coldata="output/deseq2/coldata.csv"
     output:
-        out_dir=temp(directory("output/deseq2/by_celltype/")) # delete at the end
+        out_dir=directory("output/deseq2/by_celltype/") 
     params:
         celltype_pat=config['deseq2']['subset_celltype_pattern'], # pattern to subset cell types
         min_reps_per_condition=config['deseq2']['min_reps_per_condition'],
@@ -68,7 +68,7 @@ rule run_deseq2:
         counts="output/deseq2/by_celltype/counts_{ct}.csv",
         coldata="output/deseq2/by_celltype/coldata_{ct}.csv"
     output:
-        "output/deseq2/by_celltype_results/res_{ct}.csv"
+        temp("output/deseq2/by_celltype_results/res_{ct}.csv")
     params:
         ref_level=config['deseq2']['ref_condition'],
         large_n=20,
@@ -126,3 +126,10 @@ rule plot_deseq2:
         "logs/deseq2/plot_deseq2.log"
     script:
         "scripts/plot_deseq2.R"
+
+
+onsuccess:
+    print("Workflow finished successfully! Cleaning up temporary files...")
+    import shutil
+    if os.path.exists("output/deseq2/by_celltype"):
+        shutil.rmtree("output/deseq2/by_celltype")
