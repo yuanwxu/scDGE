@@ -5,6 +5,7 @@ sink(log, type="message")
 
 library(dplyr)
 library(DESeq2)
+library(BiocParallel)
 
 source("scripts/deseq2_helpers.r")
 
@@ -23,7 +24,13 @@ dds <- prepare_deseq(counts, coldata,
 
 # Run DESeq2
 if (!is.null(dds)) {
-    dds <- DESeq(dds, parallel = TRUE)
+    # Set up parallel processing if applicable
+    n_threads <- snakemake@threads
+    if (n_threads > 1) {
+        register(MulticoreParam(n_threads))
+    }
+
+    dds <- DESeq(dds, parallel = (n_threads > 1))
 
     # Extract results
     cond_levels <- levels(colData(dds)$condition)

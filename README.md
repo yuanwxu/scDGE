@@ -41,7 +41,7 @@ snakemake -np
 
 To run the full analysis:
 ```bash
-snakemake --use-conda --cores 4
+snakemake --use-conda --cores 8
 ```
 
 ### In case there is an error

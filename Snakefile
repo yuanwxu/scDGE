@@ -79,7 +79,7 @@ rule run_deseq2:
         "envs/r_deseq2.yaml"
     log:
         "logs/deseq2/deseq2_{ct}.log"
-    threads: 8
+    threads: 1
     script:
         "scripts/run_deseq2.R"
 
